@@ -186,7 +186,6 @@
 									"\r",
 									"pm.test(\"Deve validar a propriedade userToken\", function () {\r",
 									"    pm.expect(pm.response.json()).to.have.property(\"userToken\");\r",
-									"    pm.environment.set(\"adminToken\", pm.response.json().userToken)\r",
 									"});\r",
 									""
 								],
