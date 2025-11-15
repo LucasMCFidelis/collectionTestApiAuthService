@@ -29,7 +29,8 @@
 									"});"
 								],
 								"type": "text/javascript",
-								"packages": {}
+								"packages": {},
+								"requests": {}
 							}
 						},
 						{
@@ -37,44 +38,11 @@
 							"script": {
 								"id": "c560090e-36f1-4288-be77-c1c8a73d2c3d",
 								"exec": [
-									"// Gera uma hora aleatória entre 0 e 23\r",
-									"const hour = Math.floor(Math.random() * 24);\r",
-									"\r",
-									"// Gera um minuto aleatório entre 0 e 59\r",
-									"const minute = Math.floor(Math.random() * 60);\r",
-									"\r",
-									"// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
-									"const formattedHour = hour.toString().padStart(2, '0');\r",
-									"const formattedMinute = minute.toString().padStart(2, '0');\r",
-									"\r",
-									"// Combina hora e minuto em um horário\r",
-									"const randomTime = `${formattedHour}:${formattedMinute}`;\r",
-									"\r",
-									"// Armazena o horário em uma variável de ambiente\r",
-									"pm.environment.set(\"randomStartTime\", randomTime);\r",
-									"\r",
-									"// Função para gerar uma data aleatória entre duas datas\r",
-									"function randomDate(start, end) {\r",
-									"    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
-									"    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
-									"    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
-									"    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
-									"    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
-									"}\r",
-									"\r",
-									"// Define as datas de início e fim do intervalo\r",
-									"const startDate = new Date('2024-01-01');\r",
-									"const endDate = new Date('2024-12-31');\r",
-									"\r",
-									"// Gera uma data aleatória dentro do intervalo definido\r",
-									"const generatedDate = randomDate(startDate, endDate);\r",
-									"\r",
-									"// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
-									"pm.environment.set(\"randomDate\", generatedDate);\r",
 									""
 								],
 								"type": "text/javascript",
-								"packages": {}
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
