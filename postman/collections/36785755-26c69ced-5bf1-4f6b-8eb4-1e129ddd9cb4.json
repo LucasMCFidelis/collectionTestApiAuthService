@@ -1,0 +1,1090 @@
+{
+	"info": {
+		"_postman_id": "36785755-26c69ced-5bf1-4f6b-8eb4-1e129ddd9cb4",
+		"name": "authService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login de usuário com email invalido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c7006f25-29af-48b9-9481-54060c59a219",
+								"exec": [
+									"pm.test(\"Status code deve ser 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a propriedade message\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include((\"Email deve ser um email válido\").toLocaleLowerCase());\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c560090e-36f1-4288-be77-c1c8a73d2c3d",
+								"exec": [
+									"// Gera uma hora aleatória entre 0 e 23\r",
+									"const hour = Math.floor(Math.random() * 24);\r",
+									"\r",
+									"// Gera um minuto aleatório entre 0 e 59\r",
+									"const minute = Math.floor(Math.random() * 60);\r",
+									"\r",
+									"// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
+									"const formattedHour = hour.toString().padStart(2, '0');\r",
+									"const formattedMinute = minute.toString().padStart(2, '0');\r",
+									"\r",
+									"// Combina hora e minuto em um horário\r",
+									"const randomTime = `${formattedHour}:${formattedMinute}`;\r",
+									"\r",
+									"// Armazena o horário em uma variável de ambiente\r",
+									"pm.environment.set(\"randomStartTime\", randomTime);\r",
+									"\r",
+									"// Função para gerar uma data aleatória entre duas datas\r",
+									"function randomDate(start, end) {\r",
+									"    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
+									"    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
+									"    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
+									"    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
+									"    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
+									"}\r",
+									"\r",
+									"// Define as datas de início e fim do intervalo\r",
+									"const startDate = new Date('2024-01-01');\r",
+									"const endDate = new Date('2024-12-31');\r",
+									"\r",
+									"// Gera uma data aleatória dentro do intervalo definido\r",
+									"const generatedDate = randomDate(startDate, endDate);\r",
+									"\r",
+									"// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
+									"pm.environment.set(\"randomDate\", generatedDate);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "36785755-80f58495-9be4-4cde-b1e8-7edc193b1117",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userEmail\": \"lucasm241301.com\",\r\n    \"passwordProvided\": \"U&*850802uhye\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_service_url}}/login",
+							"host": [
+								"{{auth_service_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login de usuário com dados corretos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8a595d11-70ff-4497-b679-b641ba1bd4cc",
+								"exec": [
+									"function use(fnName) {\r",
+									"    const raw = pm.collectionVariables.get(fnName);\r",
+									"    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r",
+									"    return eval(`(${raw})`);\r",
+									"}\r",
+									"const deleteSimpleUserRequest = use(\"deleteSimpleUserRequest\");\r",
+									"\r",
+									"pm.test(\"Status code deve ser 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a propriedade message\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a propriedade userToken\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"userToken\");\r",
+									"    pm.environment.set(\"userToken\", pm.response.json().userToken)\r",
+									"});\r",
+									"\r",
+									"deleteSimpleUserRequest(pm.environment.get(\"userRecentCadastreToken\"), pm.environment.get(\"userRecentCadastreId\"))"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "87e6efb1-a210-4e6b-90b7-225f7ac2a120",
+								"exec": [
+									"function use(fnName) {\r",
+									"    const raw = pm.collectionVariables.get(fnName);\r",
+									"    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r",
+									"    return eval(`(${raw})`);\r",
+									"}\r",
+									"\r",
+									"const createSimpleUserRequest = use('createSimpleUserRequest');\r",
+									"\r",
+									"createSimpleUserRequest()"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "36785755-783ad166-c744-44e7-81d4-9760be2b4df1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userEmail\": \"{{userRecentCadastreEmail}}\",\r\n    \"passwordProvided\": \"{{userRecentCadastrePassword}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_service_url}}/login",
+							"host": [
+								"{{auth_service_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login de Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8a595d11-70ff-4497-b679-b641ba1bd4cc",
+								"exec": [
+									"pm.test(\"Status code deve ser 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a propriedade message\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a propriedade userToken\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"userToken\");\r",
+									"    pm.environment.set(\"adminToken\", pm.response.json().userToken)\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "87e6efb1-a210-4e6b-90b7-225f7ac2a120",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "36785755-7bdb667f-17d6-4d0f-9d45-741ee3a9fba6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userEmail\": \"{{adminEmail}}\",\r\n    \"passwordProvided\": \"{{adminPassword}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_service_url}}/login",
+							"host": [
+								"{{auth_service_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login de usuário sem fornecer email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8a595d11-70ff-4497-b679-b641ba1bd4cc",
+								"exec": [
+									"pm.test(\"Status code deve ser 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a propriedade message\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include((\"Email é obrigatório\").toLocaleLowerCase());\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "87e6efb1-a210-4e6b-90b7-225f7ac2a120",
+								"exec": [
+									"// Gera uma hora aleatória entre 0 e 23\r",
+									"const hour = Math.floor(Math.random() * 24);\r",
+									"\r",
+									"// Gera um minuto aleatório entre 0 e 59\r",
+									"const minute = Math.floor(Math.random() * 60);\r",
+									"\r",
+									"// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
+									"const formattedHour = hour.toString().padStart(2, '0');\r",
+									"const formattedMinute = minute.toString().padStart(2, '0');\r",
+									"\r",
+									"// Combina hora e minuto em um horário\r",
+									"const randomTime = `${formattedHour}:${formattedMinute}`;\r",
+									"\r",
+									"// Armazena o horário em uma variável de ambiente\r",
+									"pm.environment.set(\"randomStartTime\", randomTime);\r",
+									"\r",
+									"// Função para gerar uma data aleatória entre duas datas\r",
+									"function randomDate(start, end) {\r",
+									"    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
+									"    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
+									"    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
+									"    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
+									"    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
+									"}\r",
+									"\r",
+									"// Define as datas de início e fim do intervalo\r",
+									"const startDate = new Date('2024-01-01');\r",
+									"const endDate = new Date('2024-12-31');\r",
+									"\r",
+									"// Gera uma data aleatória dentro do intervalo definido\r",
+									"const generatedDate = randomDate(startDate, endDate);\r",
+									"\r",
+									"// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
+									"pm.environment.set(\"randomDate\", generatedDate);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "36785755-ddfbfcb2-2423-453b-88bd-2f423c068761",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"passwordProvided\": \"{Password@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_service_url}}/login",
+							"host": [
+								"{{auth_service_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login de usuário sem fornecer senha",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8a595d11-70ff-4497-b679-b641ba1bd4cc",
+								"exec": [
+									"pm.test(\"Status code deve ser 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a propriedade message\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include((\"Senha é obrigatória\").toLocaleLowerCase());\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "87e6efb1-a210-4e6b-90b7-225f7ac2a120",
+								"exec": [
+									"// Gera uma hora aleatória entre 0 e 23\r",
+									"const hour = Math.floor(Math.random() * 24);\r",
+									"\r",
+									"// Gera um minuto aleatório entre 0 e 59\r",
+									"const minute = Math.floor(Math.random() * 60);\r",
+									"\r",
+									"// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
+									"const formattedHour = hour.toString().padStart(2, '0');\r",
+									"const formattedMinute = minute.toString().padStart(2, '0');\r",
+									"\r",
+									"// Combina hora e minuto em um horário\r",
+									"const randomTime = `${formattedHour}:${formattedMinute}`;\r",
+									"\r",
+									"// Armazena o horário em uma variável de ambiente\r",
+									"pm.environment.set(\"randomStartTime\", randomTime);\r",
+									"\r",
+									"// Função para gerar uma data aleatória entre duas datas\r",
+									"function randomDate(start, end) {\r",
+									"    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
+									"    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
+									"    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
+									"    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
+									"    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
+									"}\r",
+									"\r",
+									"// Define as datas de início e fim do intervalo\r",
+									"const startDate = new Date('2024-01-01');\r",
+									"const endDate = new Date('2024-12-31');\r",
+									"\r",
+									"// Gera uma data aleatória dentro do intervalo definido\r",
+									"const generatedDate = randomDate(startDate, endDate);\r",
+									"\r",
+									"// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
+									"pm.environment.set(\"randomDate\", generatedDate);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "36785755-2aca5744-5580-490e-9870-54b4cbc7e302",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userEmail\": \"louisa_casper48@hotmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_service_url}}/login",
+							"host": [
+								"{{auth_service_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login de usuário com email não cadastrado",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8a595d11-70ff-4497-b679-b641ba1bd4cc",
+								"exec": [
+									"pm.test(\"Status code deve ser 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a propriedade message\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
+									"    pm.expect(pm.response.text().toLowerCase()).to.include((\"Nenhum usuário encontrado com este email\").toLowerCase());\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "87e6efb1-a210-4e6b-90b7-225f7ac2a120",
+								"exec": [
+									"// Gera uma hora aleatória entre 0 e 23\r",
+									"const hour = Math.floor(Math.random() * 24);\r",
+									"\r",
+									"// Gera um minuto aleatório entre 0 e 59\r",
+									"const minute = Math.floor(Math.random() * 60);\r",
+									"\r",
+									"// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
+									"const formattedHour = hour.toString().padStart(2, '0');\r",
+									"const formattedMinute = minute.toString().padStart(2, '0');\r",
+									"\r",
+									"// Combina hora e minuto em um horário\r",
+									"const randomTime = `${formattedHour}:${formattedMinute}`;\r",
+									"\r",
+									"// Armazena o horário em uma variável de ambiente\r",
+									"pm.environment.set(\"randomStartTime\", randomTime);\r",
+									"\r",
+									"// Função para gerar uma data aleatória entre duas datas\r",
+									"function randomDate(start, end) {\r",
+									"    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
+									"    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
+									"    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
+									"    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
+									"    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
+									"}\r",
+									"\r",
+									"// Define as datas de início e fim do intervalo\r",
+									"const startDate = new Date('2024-01-01');\r",
+									"const endDate = new Date('2024-12-31');\r",
+									"\r",
+									"// Gera uma data aleatória dentro do intervalo definido\r",
+									"const generatedDate = randomDate(startDate, endDate);\r",
+									"\r",
+									"// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
+									"pm.environment.set(\"randomDate\", generatedDate);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "36785755-5a81a073-7776-4072-b0ae-a718bb078ce5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userEmail\": \"tod_cole@yahoo.com\",\r\n    \"passwordProvided\": \"{Password@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_service_url}}/login",
+							"host": [
+								"{{auth_service_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login de usuário com senha incorreta",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8a595d11-70ff-4497-b679-b641ba1bd4cc",
+								"exec": [
+									"pm.test(\"Status code deve ser 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a propriedade message\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
+									"    pm.expect(pm.response.text().toLowerCase()).to.include((\"Credenciais inválidas\").toLowerCase());\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "87e6efb1-a210-4e6b-90b7-225f7ac2a120",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "36785755-14064ca5-2188-477c-9466-5c5aa2d83ba5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userEmail\": \"{{adminEmail}}\",\r\n    \"passwordProvided\": \"{test3e@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_service_url}}/login",
+							"host": [
+								"{{auth_service_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "36785755-b31d14c7-fde5-4437-9f45-cbd80ba2d8cb"
+		},
+		{
+			"name": "Validação do token",
+			"item": [
+				{
+					"name": "Validação sem fornecer token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c7006f25-29af-48b9-9481-54060c59a219",
+								"exec": [
+									"pm.test(\"Status code deve ser 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a propriedade message\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
+									"    pm.expect(pm.response.text().toLowerCase()).to.include((\"Token não fornecido\").toLowerCase());\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c560090e-36f1-4288-be77-c1c8a73d2c3d",
+								"exec": [
+									"// Gera uma hora aleatória entre 0 e 23\r",
+									"const hour = Math.floor(Math.random() * 24);\r",
+									"\r",
+									"// Gera um minuto aleatório entre 0 e 59\r",
+									"const minute = Math.floor(Math.random() * 60);\r",
+									"\r",
+									"// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
+									"const formattedHour = hour.toString().padStart(2, '0');\r",
+									"const formattedMinute = minute.toString().padStart(2, '0');\r",
+									"\r",
+									"// Combina hora e minuto em um horário\r",
+									"const randomTime = `${formattedHour}:${formattedMinute}`;\r",
+									"\r",
+									"// Armazena o horário em uma variável de ambiente\r",
+									"pm.environment.set(\"randomStartTime\", randomTime);\r",
+									"\r",
+									"// Função para gerar uma data aleatória entre duas datas\r",
+									"function randomDate(start, end) {\r",
+									"    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
+									"    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
+									"    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
+									"    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
+									"    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
+									"}\r",
+									"\r",
+									"// Define as datas de início e fim do intervalo\r",
+									"const startDate = new Date('2024-01-01');\r",
+									"const endDate = new Date('2024-12-31');\r",
+									"\r",
+									"// Gera uma data aleatória dentro do intervalo definido\r",
+									"const generatedDate = randomDate(startDate, endDate);\r",
+									"\r",
+									"// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
+									"pm.environment.set(\"randomDate\", generatedDate);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "36785755-33210fa6-03c7-4f94-83dd-468426a5a836",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{auth_service_url}}/validate-token",
+							"host": [
+								"{{auth_service_url}}"
+							],
+							"path": [
+								"validate-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validação com token invalido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c7006f25-29af-48b9-9481-54060c59a219",
+								"exec": [
+									"pm.test(\"Status code deve ser 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a propriedade message\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
+									"    pm.expect(pm.response.text().toLowerCase()).to.include((\"Token inválido ou não fornecido\").toLowerCase());\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c560090e-36f1-4288-be77-c1c8a73d2c3d",
+								"exec": [
+									"// Gera uma hora aleatória entre 0 e 23\r",
+									"const hour = Math.floor(Math.random() * 24);\r",
+									"\r",
+									"// Gera um minuto aleatório entre 0 e 59\r",
+									"const minute = Math.floor(Math.random() * 60);\r",
+									"\r",
+									"// Formata a hora e o minuto para garantir que sempre tenham dois dígitos\r",
+									"const formattedHour = hour.toString().padStart(2, '0');\r",
+									"const formattedMinute = minute.toString().padStart(2, '0');\r",
+									"\r",
+									"// Combina hora e minuto em um horário\r",
+									"const randomTime = `${formattedHour}:${formattedMinute}`;\r",
+									"\r",
+									"// Armazena o horário em uma variável de ambiente\r",
+									"pm.environment.set(\"randomStartTime\", randomTime);\r",
+									"\r",
+									"// Função para gerar uma data aleatória entre duas datas\r",
+									"function randomDate(start, end) {\r",
+									"    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));\r",
+									"    const day = date.getDate().toString().padStart(2, '0'); // Formata o dia com dois dígitos\r",
+									"    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Formata o mês com dois dígitos\r",
+									"    const year = date.getFullYear(); // Obtém o ano com quatro dígitos\r",
+									"    return `${day}/${month}/${year}`; // Retorna a data formatada\r",
+									"}\r",
+									"\r",
+									"// Define as datas de início e fim do intervalo\r",
+									"const startDate = new Date('2024-01-01');\r",
+									"const endDate = new Date('2024-12-31');\r",
+									"\r",
+									"// Gera uma data aleatória dentro do intervalo definido\r",
+									"const generatedDate = randomDate(startDate, endDate);\r",
+									"\r",
+									"// Armazena a data gerada em uma variável de ambiente chamada `randomDate`\r",
+									"pm.environment.set(\"randomDate\", generatedDate);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "36785755-b4bc11c2-d34e-4818-985d-5ebe1f570777",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "27uwtg2uvbw 2y7w62wg2fgwf",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{auth_service_url}}/validate-token",
+							"host": [
+								"{{auth_service_url}}"
+							],
+							"path": [
+								"validate-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validação com token valido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c7006f25-29af-48b9-9481-54060c59a219",
+								"exec": [
+									"function use(fnName) {\r",
+									"    const raw = pm.collectionVariables.get(fnName);\r",
+									"    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r",
+									"    return eval(`(${raw})`);\r",
+									"}\r",
+									"const deleteSimpleUserRequest = use(\"deleteSimpleUserRequest\");\r",
+									"\r",
+									"pm.test(\"Status code deve ser 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a propriedade message\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include((\"Token válido\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar decodificação do usuário\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property((\"decoded\"));\r",
+									"});\r",
+									"\r",
+									"deleteSimpleUserRequest(pm.environment.get(\"userRecentCadastreToken\"), pm.environment.get(\"userRecentCadastreId\"))"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c560090e-36f1-4288-be77-c1c8a73d2c3d",
+								"exec": [
+									"function use(fnName) {\r",
+									"    const raw = pm.collectionVariables.get(fnName);\r",
+									"    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r",
+									"    return eval(`(${raw})`);\r",
+									"}\r",
+									"\r",
+									"const createSimpleUserRequest = use('createSimpleUserRequest');\r",
+									"\r",
+									"createSimpleUserRequest()"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "36785755-ee1738bf-b5da-4d9a-a95a-5c6311b24112",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userRecentCadastreToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{auth_service_url}}/validate-token",
+							"host": [
+								"{{auth_service_url}}"
+							],
+							"path": [
+								"validate-token"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "36785755-e0f72a4e-198d-420b-995e-54ce8ceb328e"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "210a85a9-5e3f-4f1c-b6cc-5d2bfb0d256d",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					"function use(fnName) {\r",
+					"    const raw = pm.collectionVariables.get(fnName);\r",
+					"    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r",
+					"    return eval(`(${raw})`);\r",
+					"}\r",
+					"\r",
+					"function createSimpleUserRequest(attempt = 1) {\r",
+					"    const password = \"{Password@123}\";\r",
+					"\r",
+					"    // Limite de tentativas\r",
+					"    if (attempt > 5) {\r",
+					"        console.error(\"❌ Não foi possível criar usuário após 5 tentativas.\");\r",
+					"        return;\r",
+					"    }\r",
+					"\r",
+					"    console.log(`🔄 Tentativa ${attempt} de criar usuário simples...`);\r",
+					"\r",
+					"    pm.sendRequest(\r",
+					"        {\r",
+					"            url: pm.environment.get(\"user_service_url\"),\r",
+					"            method: \"POST\",\r",
+					"            header: { \"Content-Type\": \"application/json\" },\r",
+					"            body: {\r",
+					"                mode: \"raw\",\r",
+					"                raw: JSON.stringify({\r",
+					"                    firstName: pm.variables.replaceIn(\"{{$randomWord}}\"),\r",
+					"                    lastName: `${pm.variables.replaceIn(\"{{$randomWord}}\")} ${pm.variables.replaceIn(\"{{$randomWord}}\")}`,\r",
+					"                    email: pm.variables.replaceIn(\"{{$randomEmail}}\"),\r",
+					"                    password,\r",
+					"                }),\r",
+					"            },\r",
+					"        },\r",
+					"        (err, res) => {\r",
+					"            if (err) {\r",
+					"                console.warn(`⚠ Erro na tentativa ${attempt}, tentando novamente...`);\r",
+					"                return createSimpleUserRequest(attempt + 1);\r",
+					"            }\r",
+					"\r",
+					"            const json = res.json();\r",
+					"\r",
+					"            // Se criou, salva variáveis\r",
+					"            if (json?.userId) {\r",
+					"                console.log(\"✅ Usuário criado com sucesso:\", json.userId);\r",
+					"\r",
+					"                pm.collectionVariables.set(\"userRecentCadastreId\", json.userId);\r",
+					"                pm.collectionVariables.set(\"userRecentCadastreEmail\", json.email);\r",
+					"                pm.collectionVariables.set(\"userRecentCadastrePassword\", password);\r",
+					"                pm.collectionVariables.set(\"userRecentCadastreToken\", json.userToken);\r",
+					"                return;\r",
+					"            }\r",
+					"\r",
+					"            // Tentativa falhou mesmo sem erro → repetir\r",
+					"            console.warn(`⚠ Tentativa ${attempt} falhou, tentando novamente...`);\r",
+					"            return createSimpleUserRequest(attempt + 1);\r",
+					"        }\r",
+					"    );\r",
+					"}\r",
+					"\r",
+					"function deleteSimpleUserRequest(token, userId) {\r",
+					"    if (!token || !userId) {\r",
+					"        console.warn(\"⚠ Token ou userId não informado — ignorando\");\r",
+					"        return;\r",
+					"    }\r",
+					"\r",
+					"    pm.sendRequest(\r",
+					"        {\r",
+					"            url: `${pm.environment.get(\"user_service_url\")}/${userId}`,\r",
+					"            method: \"DELETE\",\r",
+					"            header: {\r",
+					"                \"Authorization\": `Bearer ${token}`,\r",
+					"            },\r",
+					"        },\r",
+					"        (err, res) => {\r",
+					"            if (err) {\r",
+					"                console.error(\"❌ Erro no DELETE:\", err);\r",
+					"                return;\r",
+					"            }\r",
+					"            pm.collectionVariables.unset(\"userRecentCadastreId\");\r",
+					"            pm.collectionVariables.unset(\"userRecentCadastreToken\");\r",
+					"        }\r",
+					"    );\r",
+					"}\r",
+					"\r",
+					"pm.collectionVariables.set(createSimpleUserRequest.name, createSimpleUserRequest.toString());\r",
+					"pm.collectionVariables.set(deleteSimpleUserRequest.name, deleteSimpleUserRequest.toString());\r",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5352b4e9-21e5-44e5-9e8f-3ce47f659b08",
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "createSimpleUserRequest",
+			"value": ""
+		},
+		{
+			"key": "deleteSimpleUserRequest",
+			"value": ""
+		},
+		{
+			"key": "userRecentCadastreId",
+			"value": ""
+		},
+		{
+			"key": "userRecentCadastreEmail",
+			"value": ""
+		},
+		{
+			"key": "userRecentCadastrePassword",
+			"value": ""
+		},
+		{
+			"key": "userRecentCadastreToken",
+			"value": ""
+		}
+	]
+}
