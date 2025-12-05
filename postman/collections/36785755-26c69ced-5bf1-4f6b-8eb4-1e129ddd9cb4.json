@@ -755,7 +755,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "210a85a9-5e3f-4f1c-b6cc-5d2bfb0d256d",
+				"id": "82a5c627-0b48-47b6-83da-0e8907fce7f8",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
@@ -767,7 +767,7 @@
 					"}\r",
 					"\r",
 					"function createSimpleUserRequest(attempt = 1) {\r",
-					"    const password = \"{Password@123}\";\r",
+					"    const password = \"{Password@123\";\r",
 					"\r",
 					"    // Limite de tentativas\r",
 					"    if (attempt > 5) {\r",
@@ -852,7 +852,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "5352b4e9-21e5-44e5-9e8f-3ce47f659b08",
+				"id": "bb676f54-4bad-43eb-8c59-c66a5ad48428",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
