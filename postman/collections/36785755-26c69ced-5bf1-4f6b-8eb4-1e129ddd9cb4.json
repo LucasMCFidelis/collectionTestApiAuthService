@@ -843,7 +843,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "53131078-bfd6-4b4a-8d7b-497f1f1c3876",
+				"id": "4690cde2-69c4-48d2-8d39-d7b52b000fd4",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
@@ -965,6 +965,7 @@
 					"\r",
 					"pm.collectionVariables.set(createSimpleUserRequest.name, createSimpleUserRequest.toString());\r",
 					"pm.collectionVariables.set(deleteSimpleUserRequest.name, deleteSimpleUserRequest.toString());\r",
+					"pm.collectionVariables.set(performLogin.name, performLogin.toString());\r",
 					""
 				]
 			}
@@ -972,7 +973,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "cfa11f0f-4943-4fe0-9bbe-7eda921ddc9a",
+				"id": "396e3b22-a843-42d9-a64b-181e9ee219f6",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
