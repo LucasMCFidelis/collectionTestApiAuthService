@@ -746,6 +746,94 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Validação com token valido Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c7006f25-29af-48b9-9481-54060c59a219",
+								"exec": [
+									"function use(fnName) {\r",
+									"    const raw = pm.collectionVariables.get(fnName);\r",
+									"    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r",
+									"    return eval(`(${raw})`);\r",
+									"}\r",
+									"const deleteSimpleUserRequest = use(\"deleteSimpleUserRequest\");\r",
+									"\r",
+									"pm.test(\"Status code deve ser 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a propriedade message\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include((\"Token válido\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deve validar decodificação do usuário\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property((\"decoded\"));\r",
+									"});\r",
+									"\r",
+									"deleteSimpleUserRequest(pm.environment.get(\"userRecentCadastreToken\"), pm.environment.get(\"userRecentCadastreId\"))"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c560090e-36f1-4288-be77-c1c8a73d2c3d",
+								"exec": [
+									"function use(fnName) {\r",
+									"    const raw = pm.collectionVariables.get(fnName);\r",
+									"    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r",
+									"    return eval(`(${raw})`);\r",
+									"}\r",
+									"\r",
+									"const createSimpleUserRequest = use('createSimpleUserRequest');\r",
+									"\r",
+									"createSimpleUserRequest()"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"id": "36785755-b7168b53-be5e-4f8e-af45-c7a07aa6b016",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userRecentCadastreToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{auth_service_url}}/validate-token",
+							"host": [
+								"{{auth_service_url}}"
+							],
+							"path": [
+								"validate-token"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"id": "36785755-e0f72a4e-198d-420b-995e-54ce8ceb328e"
