@@ -974,10 +974,6 @@
 		{
 			"key": "userRecentCadastreToken",
 			"value": ""
-		},
-		{
-			"key": "adminToken",
-			"value": ""
 		}
 	]
 }
