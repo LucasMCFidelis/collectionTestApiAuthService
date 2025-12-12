@@ -867,7 +867,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "93bc3f6a-813b-4f77-ab39-102fe9a6c3a2",
+				"id": "93e0ba46-3722-4399-bcb9-2b7f6fc60c9b",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
@@ -950,7 +950,7 @@
 					"                return;\r",
 					"            }\r",
 					"            pm.collectionVariables.unset(\"userRecentCadastreId\");\r",
-					"            pm.collectionVariables.unset(\"userRecentCadastreId\");\r",
+					"            pm.collectionVariables.unset(\"userRecentCadastreEmail\");\r",
 					"            pm.collectionVariables.unset(\"userRecentCadastrePassword\");\r",
 					"            pm.collectionVariables.unset(\"userRecentCadastreToken\");\r",
 					"        }\r",
@@ -999,7 +999,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "8944fbb5-cd62-49be-b0d1-afcb1f3faa4b",
+				"id": "de24ac11-b565-4621-8810-b60d195be821",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
