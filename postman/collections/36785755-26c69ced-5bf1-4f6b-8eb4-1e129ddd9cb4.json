@@ -867,7 +867,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "93e0ba46-3722-4399-bcb9-2b7f6fc60c9b",
+				"id": "14dad420-51cc-445f-b4a7-d7a9e7dc3fb2",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
@@ -938,7 +938,7 @@
 					"\r",
 					"    pm.sendRequest(\r",
 					"        {\r",
-					"            url: `${pm.environment.get(\"user_service_url\")}/${userId}`,\r",
+					"            url: `${pm.environment.get(\"user_service_url\")}?userId=${userId}`,\r",
 					"            method: \"DELETE\",\r",
 					"            header: {\r",
 					"                \"Authorization\": `Bearer ${token}`,\r",
@@ -999,7 +999,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "de24ac11-b565-4621-8810-b60d195be821",
+				"id": "5e7e0133-d8c1-461a-81bf-b8cb1835d2e1",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
