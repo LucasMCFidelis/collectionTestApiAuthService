@@ -99,10 +99,9 @@
 									"\r",
 									"pm.test(\"Deve validar a propriedade userToken\", function () {\r",
 									"    pm.expect(pm.response.json()).to.have.property(\"userToken\");\r",
-									"    pm.environment.set(\"userToken\", pm.response.json().userToken)\r",
 									"});\r",
 									"\r",
-									"deleteSimpleUserRequest(pm.environment.get(\"userRecentCadastreToken\"), pm.environment.get(\"userRecentCadastreId\"))"
+									"deleteSimpleUserRequest(pm.collectionVariables.get(\"userRecentCadastreToken\"), pm.collectionVariables.get(\"userRecentCadastreId\"))"
 								],
 								"type": "text/javascript",
 								"packages": {},
