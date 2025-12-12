@@ -1019,14 +1019,6 @@
 			"value": ""
 		},
 		{
-			"key": "userRecentCadastreEmail",
-			"value": ""
-		},
-		{
-			"key": "userRecentCadastrePassword",
-			"value": ""
-		},
-		{
 			"key": "performLogin",
 			"value": ""
 		}
