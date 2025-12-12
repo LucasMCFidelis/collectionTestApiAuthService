@@ -1017,19 +1017,11 @@
 			"value": ""
 		},
 		{
-			"key": "userRecentCadastreId",
-			"value": ""
-		},
-		{
 			"key": "userRecentCadastreEmail",
 			"value": ""
 		},
 		{
 			"key": "userRecentCadastrePassword",
-			"value": ""
-		},
-		{
-			"key": "userRecentCadastreToken",
 			"value": ""
 		},
 		{
