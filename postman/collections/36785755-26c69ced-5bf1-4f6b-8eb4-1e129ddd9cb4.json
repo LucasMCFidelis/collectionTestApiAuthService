@@ -699,7 +699,7 @@
 									"    pm.expect(pm.response.json().decoded.roleName).to.have.equal(expectedRole)\r",
 									"})\r",
 									"\r",
-									"deleteSimpleUserRequest(pm.environment.get(\"userRecentCadastreToken\"), pm.environment.get(\"userRecentCadastreId\"))"
+									"deleteSimpleUserRequest(pm.collectionVariables.get(\"userRecentCadastreToken\"), pm.collectionVariables.get(\"userRecentCadastreId\"))"
 								],
 								"type": "text/javascript",
 								"packages": {},
