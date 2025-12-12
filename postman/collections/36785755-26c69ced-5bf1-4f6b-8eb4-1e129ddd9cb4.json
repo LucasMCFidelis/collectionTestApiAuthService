@@ -867,7 +867,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "4690cde2-69c4-48d2-8d39-d7b52b000fd4",
+				"id": "43e543e7-5b33-4397-8ac1-314bd99acbd2",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
@@ -950,6 +950,8 @@
 					"                return;\r",
 					"            }\r",
 					"            pm.collectionVariables.unset(\"userRecentCadastreId\");\r",
+					"            pm.collectionVariables.unset(\"userRecentCadastreId\");\r",
+					"            pm.collectionVariables.unset(\"userRecentCadastreId\");\r",
 					"            pm.collectionVariables.unset(\"userRecentCadastreToken\");\r",
 					"        }\r",
 					"    );\r",
@@ -997,7 +999,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "396e3b22-a843-42d9-a64b-181e9ee219f6",
+				"id": "a71ba50c-da44-41ba-88a1-06c6533a02af",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
