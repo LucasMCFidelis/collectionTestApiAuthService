@@ -1,8 +1,10 @@
 {
 	"info": {
-		"_postman_id": "36785755-26c69ced-5bf1-4f6b-8eb4-1e129ddd9cb4",
+		"_postman_id": "26c69ced-5bf1-4f6b-8eb4-1e129ddd9cb4",
 		"name": "authService",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36785755",
+		"_collection_link": "https://projeto-catlogo-de-eventos.postman.co/workspace/Cat%C3%A1logo-de-eventos~cbf513f9-9747-45cf-a397-52cda2cab29c/collection/36785755-26c69ced-5bf1-4f6b-8eb4-1e129ddd9cb4?action=share&source=collection_link&creator=36785755"
 	},
 	"item": [
 		{
@@ -14,7 +16,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c7006f25-29af-48b9-9481-54060c59a219",
 								"exec": [
 									"pm.test(\"Status code deve ser 400\", function () {\r",
 									"    pm.response.to.have.status(400);\r",
@@ -36,7 +37,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "c560090e-36f1-4288-be77-c1c8a73d2c3d",
 								"exec": [
 									""
 								],
@@ -46,10 +46,6 @@
 							}
 						}
 					],
-					"id": "36785755-80f58495-9be4-4cde-b1e8-7edc193b1117",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -80,7 +76,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8a595d11-70ff-4497-b679-b641ba1bd4cc",
 								"exec": [
 									"function use(fnName) {\r",
 									"    const raw = pm.collectionVariables.get(fnName);\r",
@@ -111,7 +106,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "87e6efb1-a210-4e6b-90b7-225f7ac2a120",
 								"exec": [
 									"function use(fnName) {\r",
 									"    const raw = pm.collectionVariables.get(fnName);\r",
@@ -121,7 +115,8 @@
 									"\r",
 									"const createSimpleUserRequest = use('createSimpleUserRequest');\r",
 									"\r",
-									"createSimpleUserRequest()"
+									"createSimpleUserRequest()\r",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {},
@@ -129,10 +124,6 @@
 							}
 						}
 					],
-					"id": "36785755-783ad166-c744-44e7-81d4-9760be2b4df1",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -145,7 +136,13 @@
 							]
 						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "X-Mock-Scenario",
+								"value": "SUCCESS_USER",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"userEmail\": \"{{userRecentCadastreEmail}}\",\r\n    \"passwordProvided\": \"{{userRecentCadastrePassword}}\"\r\n}",
@@ -173,7 +170,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8a595d11-70ff-4497-b679-b641ba1bd4cc",
 								"exec": [
 									"pm.test(\"Status code deve ser 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -196,7 +192,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "87e6efb1-a210-4e6b-90b7-225f7ac2a120",
 								"exec": [
 									""
 								],
@@ -206,10 +201,6 @@
 							}
 						}
 					],
-					"id": "36785755-7bdb667f-17d6-4d0f-9d45-741ee3a9fba6",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -222,7 +213,13 @@
 							]
 						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "X-Mock-Scenario",
+								"value": "SUCCESS_ADMIN",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"userEmail\": \"{{adminEmail}}\",\r\n    \"passwordProvided\": \"{{adminPassword}}\"\r\n}",
@@ -250,7 +247,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8a595d11-70ff-4497-b679-b641ba1bd4cc",
 								"exec": [
 									"pm.test(\"Status code deve ser 400\", function () {\r",
 									"    pm.response.to.have.status(400);\r",
@@ -272,7 +268,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "87e6efb1-a210-4e6b-90b7-225f7ac2a120",
 								"exec": [
 									""
 								],
@@ -282,10 +277,6 @@
 							}
 						}
 					],
-					"id": "36785755-ddfbfcb2-2423-453b-88bd-2f423c068761",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -316,7 +307,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8a595d11-70ff-4497-b679-b641ba1bd4cc",
 								"exec": [
 									"pm.test(\"Status code deve ser 400\", function () {\r",
 									"    pm.response.to.have.status(400);\r",
@@ -338,7 +328,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "87e6efb1-a210-4e6b-90b7-225f7ac2a120",
 								"exec": [
 									""
 								],
@@ -348,10 +337,6 @@
 							}
 						}
 					],
-					"id": "36785755-2aca5744-5580-490e-9870-54b4cbc7e302",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -382,7 +367,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8a595d11-70ff-4497-b679-b641ba1bd4cc",
 								"exec": [
 									"pm.test(\"Status code deve ser 404\", function () {\r",
 									"    pm.response.to.have.status(404);\r",
@@ -404,7 +388,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "87e6efb1-a210-4e6b-90b7-225f7ac2a120",
 								"exec": [
 									""
 								],
@@ -414,10 +397,6 @@
 							}
 						}
 					],
-					"id": "36785755-5a81a073-7776-4072-b0ae-a718bb078ce5",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -430,7 +409,13 @@
 							]
 						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "X-Mock-Scenario",
+								"value": "USER_NOT_FOUND",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"userEmail\": \"tod_cole@yahoo.com\",\r\n    \"passwordProvided\": \"{Password@123\"\r\n}",
@@ -458,7 +443,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8a595d11-70ff-4497-b679-b641ba1bd4cc",
 								"exec": [
 									"pm.test(\"Status code deve ser 401\", function () {\r",
 									"    pm.response.to.have.status(401);\r",
@@ -480,7 +464,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "87e6efb1-a210-4e6b-90b7-225f7ac2a120",
 								"exec": [
 									""
 								],
@@ -490,13 +473,15 @@
 							}
 						}
 					],
-					"id": "36785755-14064ca5-2188-477c-9466-5c5aa2d83ba5",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "X-Mock-Scenario",
+								"value": "INVALID_CREDENTIALS",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"userEmail\": \"{{adminEmail}}\",\r\n    \"passwordProvided\": \"{test3e@123\"\r\n}",
@@ -518,8 +503,7 @@
 					},
 					"response": []
 				}
-			],
-			"id": "36785755-b31d14c7-fde5-4437-9f45-cbd80ba2d8cb"
+			]
 		},
 		{
 			"name": "Validação do token",
@@ -530,7 +514,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c7006f25-29af-48b9-9481-54060c59a219",
 								"exec": [
 									"pm.test(\"Status code deve ser 400\", function () {\r",
 									"    pm.response.to.have.status(400);\r",
@@ -552,7 +535,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "c560090e-36f1-4288-be77-c1c8a73d2c3d",
 								"exec": [
 									""
 								],
@@ -562,10 +544,6 @@
 							}
 						}
 					],
-					"id": "36785755-33210fa6-03c7-4f94-83dd-468426a5a836",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -597,7 +575,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c7006f25-29af-48b9-9481-54060c59a219",
 								"exec": [
 									"pm.test(\"Status code deve ser 401\", function () {\r",
 									"    pm.response.to.have.status(401);\r",
@@ -619,7 +596,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "c560090e-36f1-4288-be77-c1c8a73d2c3d",
 								"exec": [
 									""
 								],
@@ -629,10 +605,6 @@
 							}
 						}
 					],
-					"id": "36785755-b4bc11c2-d34e-4818-985d-5ebe1f570777",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -664,7 +636,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c7006f25-29af-48b9-9481-54060c59a219",
 								"exec": [
 									"function use(fnName) {\r",
 									"    const raw = pm.collectionVariables.get(fnName);\r",
@@ -709,7 +680,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "c560090e-36f1-4288-be77-c1c8a73d2c3d",
 								"exec": [
 									"function use(fnName) {\r",
 									"    const raw = pm.collectionVariables.get(fnName);\r",
@@ -718,8 +688,16 @@
 									"}\r",
 									"\r",
 									"const createSimpleUserRequest = use('createSimpleUserRequest');\r",
+									"const performLogin = use(\"performLogin\");\r",
 									"\r",
-									"createSimpleUserRequest()"
+									"createSimpleUserRequest()\r",
+									"performLogin(\r",
+									"    pm.collectionVariables.get(\"userRecentCadastreEmail\"),\r",
+									"    pm.collectionVariables.get(\"userRecentCadastrePassword\"),\r",
+									"    \"SUCCESS_USER\",\r",
+									"    \"userRecentCadastreToken\"\r",
+									");\r",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {},
@@ -727,10 +705,6 @@
 							}
 						}
 					],
-					"id": "36785755-ee1738bf-b5da-4d9a-a95a-5c6311b24112",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -762,7 +736,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c7006f25-29af-48b9-9481-54060c59a219",
 								"exec": [
 									"function use(fnName) {\r",
 									"    const raw = pm.collectionVariables.get(fnName);\r",
@@ -807,7 +780,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "c560090e-36f1-4288-be77-c1c8a73d2c3d",
 								"exec": [
 									"function use(fnName) {\r",
 									"    const raw = pm.collectionVariables.get(fnName);\r",
@@ -820,7 +792,7 @@
 									"const adminEmail = pm.environment.get(\"adminEmail\");\r",
 									"const adminPassword = pm.environment.get(\"adminPassword\");\r",
 									"\r",
-									"login(adminEmail, adminPassword)\r",
+									"login(adminEmail, adminPassword, \"SUCCESS_ADMIN\")\r",
 									""
 								],
 								"type": "text/javascript",
@@ -829,10 +801,6 @@
 							}
 						}
 					],
-					"id": "36785755-b7168b53-be5e-4f8e-af45-c7a07aa6b016",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -858,15 +826,13 @@
 					},
 					"response": []
 				}
-			],
-			"id": "36785755-e0f72a4e-198d-420b-995e-54ce8ceb328e"
+			]
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "14dad420-51cc-445f-b4a7-d7a9e7dc3fb2",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
@@ -878,6 +844,15 @@
 					"}\r",
 					"\r",
 					"function createSimpleUserRequest(attempt = 1) {\r",
+					"    if (pm.environment.get(\"useMock\") === \"true\") {\r",
+					"        console.log(\"🟡 Modo mock ativo — pulando criação real de usuário\");\r",
+					"\r",
+					"        pm.collectionVariables.set(\"userRecentCadastreEmail\", \"mock.user@test.com\");\r",
+					"        pm.collectionVariables.set(\"userRecentCadastrePassword\", \"Password@123\");\r",
+					"\r",
+					"        return;\r",
+					"    }\r",
+					"\r",
 					"    const password = \"{Password@123\";\r",
 					"\r",
 					"    // Limite de tentativas\r",
@@ -930,6 +905,10 @@
 					"}\r",
 					"\r",
 					"function deleteSimpleUserRequest(token, userId) {\r",
+					"    if (pm.environment.get(\"useMock\") === \"true\") {\r",
+					"        console.log(\"🟡 Modo mock ativo — pulando delete de usuário\");\r",
+					"        return;\r",
+					"    }\r",
 					"    if (!token || !userId) {\r",
 					"        console.warn(\"⚠ Token ou userId não informado — ignorando\");\r",
 					"        return;\r",
@@ -956,16 +935,25 @@
 					"    );\r",
 					"}\r",
 					"\r",
-					"function performLogin(email, password) {\r",
+					"function performLogin(email, password, scenario, tokenVarName = \"adminToken\") {\r",
 					"    if (!email || !password) {\r",
 					"        console.error(\"❌ email ou password não informados\");\r",
+					"        return;\r",
+					"    }\r",
+					"\r",
+					"    const headers = {\r",
+					"        \"Content-Type\": \"application/json\"\r",
+					"    };\r",
+					"\r",
+					"    if (pm.environment.get(\"useMock\") === \"true\" && scenario) {\r",
+					"        headers[\"x-mock-scenario\"] = scenario;\r",
 					"    }\r",
 					"\r",
 					"    pm.sendRequest(\r",
 					"        {\r",
 					"            url: `${pm.environment.get(\"auth_service_url\")}/login`,\r",
 					"            method: \"POST\",\r",
-					"            header: { \"Content-Type\": \"application/json\" },\r",
+					"            header: headers,\r",
 					"            body: {\r",
 					"                mode: \"raw\",\r",
 					"                raw: JSON.stringify({\r",
@@ -977,16 +965,22 @@
 					"        (err, res) => {\r",
 					"            if (err) {\r",
 					"                console.error(\"❌ Erro no login:\", err);\r",
+					"                return;\r",
 					"            }\r",
+					"\r",
 					"            const json = res.json();\r",
+					"\r",
 					"            if (json?.userToken) {\r",
-					"                pm.collectionVariables.set(\"adminToken\", json.userToken)\r",
-					"                return\r",
+					"                pm.collectionVariables.set(tokenVarName, json.userToken);\r",
+					"                console.log(`✅ Token salvo em \"${tokenVarName}\"`);\r",
+					"                return;\r",
 					"            }\r",
-					"            console.error(\"❌ Token não retornado\");\r",
+					"\r",
+					"            console.error(\"❌ Token não retornado\", json);\r",
 					"        }\r",
 					"    );\r",
 					"}\r",
+					"\r",
 					"\r",
 					"pm.collectionVariables.set(createSimpleUserRequest.name, createSimpleUserRequest.toString());\r",
 					"pm.collectionVariables.set(deleteSimpleUserRequest.name, deleteSimpleUserRequest.toString());\r",
@@ -998,7 +992,6 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "5e7e0133-d8c1-461a-81bf-b8cb1835d2e1",
 				"type": "text/javascript",
 				"packages": {},
 				"requests": {},
@@ -1019,6 +1012,10 @@
 		},
 		{
 			"key": "performLogin",
+			"value": ""
+		},
+		{
+			"key": "function () { [native code] }",
 			"value": ""
 		}
 	]
