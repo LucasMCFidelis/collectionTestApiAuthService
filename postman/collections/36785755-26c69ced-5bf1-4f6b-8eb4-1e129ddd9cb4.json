@@ -4,7 +4,7 @@
 		"name": "authService",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "36785755",
-		"_collection_link": "https://projeto-catlogo-de-eventos.postman.co/workspace/Cat%C3%A1logo-de-eventos~cbf513f9-9747-45cf-a397-52cda2cab29c/collection/36785755-26c69ced-5bf1-4f6b-8eb4-1e129ddd9cb4?action=share&source=collection_link&creator=36785755"
+		"_collection_link": "https://projeto-catlogo-de-eventos.postman.co/workspace/cbf513f9-9747-45cf-a397-52cda2cab29c/collection/36785755-26c69ced-5bf1-4f6b-8eb4-1e129ddd9cb4?action=share&source=collection_link&creator=36785755"
 	},
 	"item": [
 		{
@@ -139,7 +139,7 @@
 						"header": [
 							{
 								"key": "X-Mock-Scenario",
-								"value": "SUCCESS_USER",
+								"value": "SUCCESS_VALIDATE_USER",
 								"type": "text"
 							}
 						],
@@ -216,7 +216,7 @@
 						"header": [
 							{
 								"key": "X-Mock-Scenario",
-								"value": "SUCCESS_ADMIN",
+								"value": "SUCCESS_VALIDATE_ADMIN",
 								"type": "text"
 							}
 						],
@@ -694,7 +694,7 @@
 									"performLogin(\r",
 									"    pm.collectionVariables.get(\"userRecentCadastreEmail\"),\r",
 									"    pm.collectionVariables.get(\"userRecentCadastrePassword\"),\r",
-									"    \"SUCCESS_USER\",\r",
+									"    \"SUCCESS_VALIDATE_USER\",\r",
 									"    \"userRecentCadastreToken\"\r",
 									");\r",
 									""
@@ -792,7 +792,7 @@
 									"const adminEmail = pm.environment.get(\"adminEmail\");\r",
 									"const adminPassword = pm.environment.get(\"adminPassword\");\r",
 									"\r",
-									"login(adminEmail, adminPassword, \"SUCCESS_ADMIN\")\r",
+									"login(adminEmail, adminPassword, \"SUCCESS_VALIDATE_ADMIN\")\r",
 									""
 								],
 								"type": "text/javascript",
@@ -1016,6 +1016,18 @@
 		},
 		{
 			"key": "function () { [native code] }",
+			"value": ""
+		},
+		{
+			"key": "userRecentCadastreEmail",
+			"value": ""
+		},
+		{
+			"key": "userRecentCadastrePassword",
+			"value": ""
+		},
+		{
+			"key": "userRecentCadastreToken",
 			"value": ""
 		}
 	]
