@@ -1,0 +1,18 @@
+{
+  "id": "production-env",
+  "name": "Production Integration",
+  "description": "⚠️ AVISO: Este environment NÃO contém adminEmail e adminPassword.\n\nPara executar os cenários que envolvem autenticação de administrador, é OBRIGATÓRIO injetar as credenciais via CLI (Newman) ou variáveis de ambiente.\n\nExemplo:\nnewman run postman/collections/<collection-name>.json -e postman/environments/production.environment.json --env-var 'adminEmail=admin@empresa.com' --env-var 'adminPassword=SenhaReal@123' \n\nSem essa injeção, os testes de admin irão falhar.",
+  "values": [
+    {
+      "key": "auth_service_url",
+      "value": "https://auth-service-eventscatalog.onrender.com/auth",
+      "enabled": true
+    },
+    {
+      "key": "user_service_url",
+      "value": "https://user-service-eventscatalog.onrender.com/users",
+      "enabled": true
+    },
+    { "key": "useMock", "value": "false", "enabled": true }
+  ]
+}
