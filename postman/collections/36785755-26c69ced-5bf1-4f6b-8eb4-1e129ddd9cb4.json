@@ -4,7 +4,7 @@
 		"name": "authService",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "36785755",
-		"_collection_link": "https://projeto-catlogo-de-eventos.postman.co/workspace/cbf513f9-9747-45cf-a397-52cda2cab29c/collection/36785755-26c69ced-5bf1-4f6b-8eb4-1e129ddd9cb4?action=share&source=collection_link&creator=36785755"
+		"_collection_link": "https://projeto-catlogo-de-eventos.postman.co/workspace/Cat%C3%A1logo-de-eventos~cbf513f9-9747-45cf-a397-52cda2cab29c/collection/36785755-26c69ced-5bf1-4f6b-8eb4-1e129ddd9cb4?action=share&source=collection_link&creator=36785755"
 	},
 	"item": [
 		{
@@ -377,7 +377,8 @@
 									"});\r",
 									"\r",
 									"pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-									"    pm.expect(pm.response.text().toLowerCase()).to.include((\"Nenhum usuário encontrado com este email\").toLowerCase());\r",
+									"    const expectMessage = \"Usuário não encontrado\".toLowerCase()\r",
+									"    pm.expect(pm.response.text().toLowerCase()).to.include(expectMessage);\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1016,18 +1017,6 @@
 		},
 		{
 			"key": "function () { [native code] }",
-			"value": ""
-		},
-		{
-			"key": "userRecentCadastreEmail",
-			"value": ""
-		},
-		{
-			"key": "userRecentCadastrePassword",
-			"value": ""
-		},
-		{
-			"key": "userRecentCadastreToken",
 			"value": ""
 		}
 	]
