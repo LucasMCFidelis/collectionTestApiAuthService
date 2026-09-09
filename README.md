@@ -7,7 +7,7 @@ Collection do Postman para testes de integração (end-to-end) do **AuthService*
 ## ▶️ Como executar
 
 ### Opção 1 — Postman (interface gráfica)
-1. Importe a collection em `postman/collections/authService.json`.
+1. Importe a collection em `postman/collections/auth-service.postman_collection`.
 2. Importe o(s) environment(s) desejado(s) em `postman/environments/`.
 3. Selecione o environment no canto superior direito do Postman.
 4. Preencha as variáveis obrigatórias (ver seção [Variáveis](#️-variáveis-necessárias-para-executar-a-collection) abaixo).
@@ -17,7 +17,7 @@ Collection do Postman para testes de integração (end-to-end) do **AuthService*
 ```bash
 npm install -g newman
 
-newman run postman/collections/authService.json \
+newman run postman/collections/auth-service.postman_collection \
   -e postman/environments/local-mock.environment.json
 ```
 Basta trocar o arquivo de environment (`-e`) para rodar contra outro ambiente (`local-real`, `ci` ou `production`).
