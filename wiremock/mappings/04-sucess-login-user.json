@@ -1,0 +1,19 @@
+{
+  "priority": 10,
+  "request": {
+    "method": "POST",
+    "url": "/auth/login",
+    "headers": {
+      "X-Mock-Scenario": {
+        "equalTo": "SUCCESS_LOGIN_USER"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "message": "Login bem-sucedido",
+      "userToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMjQ4ZDQwYy1kMGFlLTQzNWMtYjBkOS1kYTU3MGQzZDk0ODQiLCJ1c2VyRW1haWwiOiJhbHZlcnRhX2dvdHRsaWViMjBAZ21haWwuY29tIiwicm9sZU5hbWUiOiJVc2VyIiwiaWF0IjoxNzg5NzgzMTc3LCJleHAiOjE3ODk3ODY3Nzd9.JGzBHRc7k34OSOafR8lq3rnuOPQxxwbOQUgXwZl4S88"
+    }
+  }
+}

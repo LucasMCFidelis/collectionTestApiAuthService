@@ -1,0 +1,25 @@
+{
+  "priority": 10,
+  "request": {
+    "method": "POST",
+    "url": "/auth/validate-token",
+    "headers": {
+      "X-Mock-Scenario": {
+        "equalTo": "SUCCESS_VALIDATE_TOKEN_ADMIN"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "message": "Token válido",
+      "decoded": {
+        "userId": "{{random 'Internet.uuid'}}",
+        "userEmail": "{{random 'Internet.email_address'}}",
+        "roleName": "Admin",
+        "iat": 1789781915,
+        "exp": 1789785515
+      }
+    }
+  }
+}
