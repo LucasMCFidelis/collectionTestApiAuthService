@@ -5,7 +5,7 @@
     "url": "/auth/validate-token",
     "headers": {
       "X-Mock-Scenario": {
-        "equalTo": "SUCCESS_VALIDATE_TOKEN_USER"
+        "matches": "SUCCESS_VALIDATE_TOKEN_USER(_.*)?"
       }
     }
   },
@@ -14,12 +14,13 @@
     "jsonBody": {
       "message": "Token válido",
       "decoded": {
-        "userId": "{{random 'Internet.uuid'}}",
-        "userEmail": "{{random 'Internet.email_address'}}",
+        "userId": "{{#assign 'id'}}{{regexExtract request.headers.X-Mock-Scenario '(?<=SUCCESS_VALIDATE_TOKEN_USER_).+' default=''}}{{/assign}}{{#if id}}{{id}}{{else}}{{randomValue type='UUID'}}{{/if}}",
+        "userEmail": "{{randomValue type='UUID'}}@mock.com",
         "roleName": "User",
         "iat": 1789781915,
         "exp": 1789785515
       }
-    }
+    },
+    "transformers": ["response-template"]
   }
 }
