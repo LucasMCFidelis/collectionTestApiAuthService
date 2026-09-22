@@ -4,12 +4,12 @@
   "values": [
     {
       "key": "auth_service_url",
-      "value": "http://localhost:3232/auth",
+      "value": "http://auth-service:8080/auth",
       "enabled": true
     },
     {
       "key": "user_service_url",
-      "value": "http://localhost:8089/users",
+      "value": "http://user-service:8080/users",
       "enabled": true
     },
     {
