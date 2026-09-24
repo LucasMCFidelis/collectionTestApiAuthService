@@ -1,0 +1,19 @@
+{
+  "id": "local-env",
+  "name": "Local Environment - authService",
+  "values": [
+    {
+      "key": "auth_service_url",
+      "value": "http://localhost:8082/auth",
+      "enabled": true
+    },
+    {
+      "key": "user_service_url",
+      "value": "http://localhost:8081/users",
+      "enabled": true
+    },
+    { "key": "useMock", "value": "true", "enabled": true },
+    { "key": "adminEmail", "value": "mock.admin@test.com", "enabled": true },
+    { "key": "adminPassword", "value": "Password@123", "enabled": true }
+  ]
+}
