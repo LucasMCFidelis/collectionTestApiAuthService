@@ -1,1023 +1,902 @@
 {
-	"info": {
-		"_postman_id": "26c69ced-5bf1-4f6b-8eb4-1e129ddd9cb4",
-		"name": "authService",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "36785755",
-		"_collection_link": "https://projeto-catlogo-de-eventos.postman.co/workspace/Cat%C3%A1logo-de-eventos~cbf513f9-9747-45cf-a397-52cda2cab29c/collection/36785755-26c69ced-5bf1-4f6b-8eb4-1e129ddd9cb4?action=share&source=collection_link&creator=36785755"
-	},
-	"item": [
-		{
-			"name": "Login",
-			"item": [
-				{
-					"name": "Login de usuário com email invalido",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code deve ser 400\", function () {\r",
-									"    pm.response.to.have.status(400);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a propriedade message\", function () {\r",
-									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-									"    pm.expect(pm.response.text()).to.include((\"Email deve ser um email válido\").toLocaleLowerCase());\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"userEmail\": \"lucasm241301.com\",\r\n    \"passwordProvided\": \"U&*850802uhye\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{auth_service_url}}/login",
-							"host": [
-								"{{auth_service_url}}"
-							],
-							"path": [
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Login de usuário com dados corretos",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"function use(fnName) {\r",
-									"    const raw = pm.collectionVariables.get(fnName);\r",
-									"    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r",
-									"    return eval(`(${raw})`);\r",
-									"}\r",
-									"const deleteSimpleUserRequest = use(\"deleteSimpleUserRequest\");\r",
-									"\r",
-									"pm.test(\"Status code deve ser 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a propriedade message\", function () {\r",
-									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a propriedade userToken\", function () {\r",
-									"    pm.expect(pm.response.json()).to.have.property(\"userToken\");\r",
-									"});\r",
-									"\r",
-									"deleteSimpleUserRequest(pm.collectionVariables.get(\"userRecentCadastreToken\"), pm.collectionVariables.get(\"userRecentCadastreId\"))"
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"function use(fnName) {\r",
-									"    const raw = pm.collectionVariables.get(fnName);\r",
-									"    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r",
-									"    return eval(`(${raw})`);\r",
-									"}\r",
-									"\r",
-									"const createSimpleUserRequest = use('createSimpleUserRequest');\r",
-									"\r",
-									"createSimpleUserRequest()\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Mock-Scenario",
-								"value": "SUCCESS_VALIDATE_USER",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"userEmail\": \"{{userRecentCadastreEmail}}\",\r\n    \"passwordProvided\": \"{{userRecentCadastrePassword}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{auth_service_url}}/login",
-							"host": [
-								"{{auth_service_url}}"
-							],
-							"path": [
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Login de Admin",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code deve ser 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a propriedade message\", function () {\r",
-									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a propriedade userToken\", function () {\r",
-									"    pm.expect(pm.response.json()).to.have.property(\"userToken\");\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Mock-Scenario",
-								"value": "SUCCESS_VALIDATE_ADMIN",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"userEmail\": \"{{adminEmail}}\",\r\n    \"passwordProvided\": \"{{adminPassword}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{auth_service_url}}/login",
-							"host": [
-								"{{auth_service_url}}"
-							],
-							"path": [
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Login de usuário sem fornecer email",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code deve ser 400\", function () {\r",
-									"    pm.response.to.have.status(400);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a propriedade message\", function () {\r",
-									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-									"    pm.expect(pm.response.text()).to.include((\"Email é obrigatório\").toLocaleLowerCase());\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"passwordProvided\": \"{Password@123\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{auth_service_url}}/login",
-							"host": [
-								"{{auth_service_url}}"
-							],
-							"path": [
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Login de usuário sem fornecer senha",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code deve ser 400\", function () {\r",
-									"    pm.response.to.have.status(400);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a propriedade message\", function () {\r",
-									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-									"    pm.expect(pm.response.text()).to.include((\"Senha é obrigatória\").toLocaleLowerCase());\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"userEmail\": \"louisa_casper48@hotmail.com\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{auth_service_url}}/login",
-							"host": [
-								"{{auth_service_url}}"
-							],
-							"path": [
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Login de usuário com email não cadastrado",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code deve ser 404\", function () {\r",
-									"    pm.response.to.have.status(404);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a propriedade message\", function () {\r",
-									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-									"    const expectMessage = \"Usuário não encontrado\".toLowerCase()\r",
-									"    pm.expect(pm.response.text().toLowerCase()).to.include(expectMessage);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Mock-Scenario",
-								"value": "USER_NOT_FOUND",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"userEmail\": \"tod_cole@yahoo.com\",\r\n    \"passwordProvided\": \"{Password@123\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{auth_service_url}}/login",
-							"host": [
-								"{{auth_service_url}}"
-							],
-							"path": [
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Login de usuário com senha incorreta",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code deve ser 401\", function () {\r",
-									"    pm.response.to.have.status(401);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a propriedade message\", function () {\r",
-									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-									"    pm.expect(pm.response.text().toLowerCase()).to.include((\"Credenciais inválidas\").toLowerCase());\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "X-Mock-Scenario",
-								"value": "INVALID_CREDENTIALS",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"userEmail\": \"{{adminEmail}}\",\r\n    \"passwordProvided\": \"{test3e@123\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{auth_service_url}}/login",
-							"host": [
-								"{{auth_service_url}}"
-							],
-							"path": [
-								"login"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Validação do token",
-			"item": [
-				{
-					"name": "Validação sem fornecer token",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code deve ser 400\", function () {\r",
-									"    pm.response.to.have.status(400);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a propriedade message\", function () {\r",
-									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-									"    pm.expect(pm.response.text().toLowerCase()).to.include((\"Token não fornecido\").toLowerCase());\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{auth_service_url}}/validate-token",
-							"host": [
-								"{{auth_service_url}}"
-							],
-							"path": [
-								"validate-token"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Validação com token invalido",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code deve ser 401\", function () {\r",
-									"    pm.response.to.have.status(401);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a propriedade message\", function () {\r",
-									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-									"    pm.expect(pm.response.text().toLowerCase()).to.include((\"Token inválido ou não fornecido\").toLowerCase());\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "27uwtg2uvbw 2y7w62wg2fgwf",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{auth_service_url}}/validate-token",
-							"host": [
-								"{{auth_service_url}}"
-							],
-							"path": [
-								"validate-token"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Validação com token valido",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"function use(fnName) {\r",
-									"    const raw = pm.collectionVariables.get(fnName);\r",
-									"    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r",
-									"    return eval(`(${raw})`);\r",
-									"}\r",
-									"const deleteSimpleUserRequest = use(\"deleteSimpleUserRequest\");\r",
-									"\r",
-									"pm.test(\"Status code deve ser 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a propriedade message\", function () {\r",
-									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-									"    pm.expect(pm.response.text()).to.include((\"Token válido\"));\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar decodificação do usuário\", function () {\r",
-									"    pm.expect(pm.response.json()).to.have.property((\"decoded\"));\r",
-									"    pm.expect(pm.response.json().decoded).to.have.property((\"userId\"));\r",
-									"    pm.expect(pm.response.json().decoded).to.have.property((\"userEmail\"));\r",
-									"    pm.expect(pm.response.json().decoded).to.have.property((\"roleName\"));\r",
-									"    pm.expect(pm.response.json().decoded).to.have.property((\"iat\"));\r",
-									"    pm.expect(pm.response.json().decoded).to.have.property((\"exp\"));\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a Permissão do usuário\", function (){\r",
-									"    const expectedRole = \"User\"\r",
-									"    pm.expect(pm.response.json().decoded.roleName).to.have.equal(expectedRole)\r",
-									"})\r",
-									"\r",
-									"deleteSimpleUserRequest(pm.collectionVariables.get(\"userRecentCadastreToken\"), pm.collectionVariables.get(\"userRecentCadastreId\"))"
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"function use(fnName) {\r",
-									"    const raw = pm.collectionVariables.get(fnName);\r",
-									"    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r",
-									"    return eval(`(${raw})`);\r",
-									"}\r",
-									"\r",
-									"const createSimpleUserRequest = use('createSimpleUserRequest');\r",
-									"const performLogin = use(\"performLogin\");\r",
-									"\r",
-									"createSimpleUserRequest()\r",
-									"performLogin(\r",
-									"    pm.collectionVariables.get(\"userRecentCadastreEmail\"),\r",
-									"    pm.collectionVariables.get(\"userRecentCadastrePassword\"),\r",
-									"    \"SUCCESS_VALIDATE_USER\",\r",
-									"    \"userRecentCadastreToken\"\r",
-									");\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{userRecentCadastreToken}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{auth_service_url}}/validate-token",
-							"host": [
-								"{{auth_service_url}}"
-							],
-							"path": [
-								"validate-token"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Validação com token admin valido",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"function use(fnName) {\r",
-									"    const raw = pm.collectionVariables.get(fnName);\r",
-									"    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r",
-									"    return eval(`(${raw})`);\r",
-									"}\r",
-									"const deleteSimpleUserRequest = use(\"deleteSimpleUserRequest\");\r",
-									"\r",
-									"pm.test(\"Status code deve ser 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a propriedade message\", function () {\r",
-									"    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
-									"    pm.expect(pm.response.text()).to.include((\"Token válido\"));\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar decodificação do usuário\", function () {\r",
-									"    pm.expect(pm.response.json()).to.have.property((\"decoded\"));\r",
-									"    pm.expect(pm.response.json().decoded).to.have.property((\"userId\"));\r",
-									"    pm.expect(pm.response.json().decoded).to.have.property((\"userEmail\"));\r",
-									"    pm.expect(pm.response.json().decoded).to.have.property((\"roleName\"));\r",
-									"    pm.expect(pm.response.json().decoded).to.have.property((\"iat\"));\r",
-									"    pm.expect(pm.response.json().decoded).to.have.property((\"exp\"));\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Deve validar a Permissão do usuário\", function (){\r",
-									"    const expectedRole = \"Admin\"\r",
-									"    pm.expect(pm.response.json().decoded.roleName).to.have.equal(expectedRole)\r",
-									"})\r",
-									"\r",
-									"pm.collectionVariables.unset(\"adminToken\")"
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"function use(fnName) {\r",
-									"    const raw = pm.collectionVariables.get(fnName);\r",
-									"    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r",
-									"    return eval(`(${raw})`);\r",
-									"}\r",
-									"\r",
-									"const login = use(\"performLogin\");\r",
-									"\r",
-									"const adminEmail = pm.environment.get(\"adminEmail\");\r",
-									"const adminPassword = pm.environment.get(\"adminPassword\");\r",
-									"\r",
-									"login(adminEmail, adminPassword, \"SUCCESS_VALIDATE_ADMIN\")\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{adminToken}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{auth_service_url}}/validate-token",
-							"host": [
-								"{{auth_service_url}}"
-							],
-							"path": [
-								"validate-token"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"packages": {},
-				"requests": {},
-				"exec": [
-					"function use(fnName) {\r",
-					"    const raw = pm.collectionVariables.get(fnName);\r",
-					"    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r",
-					"    return eval(`(${raw})`);\r",
-					"}\r",
-					"\r",
-					"function createSimpleUserRequest(attempt = 1) {\r",
-					"    if (pm.environment.get(\"useMock\") === \"true\") {\r",
-					"        console.log(\"🟡 Modo mock ativo — pulando criação real de usuário\");\r",
-					"\r",
-					"        pm.collectionVariables.set(\"userRecentCadastreEmail\", \"mock.user@test.com\");\r",
-					"        pm.collectionVariables.set(\"userRecentCadastrePassword\", \"Password@123\");\r",
-					"\r",
-					"        return;\r",
-					"    }\r",
-					"\r",
-					"    const password = \"{Password@123\";\r",
-					"\r",
-					"    // Limite de tentativas\r",
-					"    if (attempt > 5) {\r",
-					"        console.error(\"❌ Não foi possível criar usuário após 5 tentativas.\");\r",
-					"        return;\r",
-					"    }\r",
-					"\r",
-					"    console.log(`🔄 Tentativa ${attempt} de criar usuário simples...`);\r",
-					"\r",
-					"    pm.sendRequest(\r",
-					"        {\r",
-					"            url: pm.environment.get(\"user_service_url\"),\r",
-					"            method: \"POST\",\r",
-					"            header: { \"Content-Type\": \"application/json\" },\r",
-					"            body: {\r",
-					"                mode: \"raw\",\r",
-					"                raw: JSON.stringify({\r",
-					"                    firstName: pm.variables.replaceIn(\"{{$randomWord}}\"),\r",
-					"                    lastName: `${pm.variables.replaceIn(\"{{$randomWord}}\")} ${pm.variables.replaceIn(\"{{$randomWord}}\")}`,\r",
-					"                    email: pm.variables.replaceIn(\"{{$randomEmail}}\"),\r",
-					"                    password,\r",
-					"                }),\r",
-					"            },\r",
-					"        },\r",
-					"        (err, res) => {\r",
-					"            if (err) {\r",
-					"                console.warn(`⚠ Erro na tentativa ${attempt}, tentando novamente...`);\r",
-					"                return createSimpleUserRequest(attempt + 1);\r",
-					"            }\r",
-					"\r",
-					"            const json = res.json();\r",
-					"\r",
-					"            // Se criou, salva variáveis\r",
-					"            if (json?.userId) {\r",
-					"                console.log(\"✅ Usuário criado com sucesso:\", json.userId);\r",
-					"\r",
-					"                pm.collectionVariables.set(\"userRecentCadastreId\", json.userId);\r",
-					"                pm.collectionVariables.set(\"userRecentCadastreEmail\", json.email);\r",
-					"                pm.collectionVariables.set(\"userRecentCadastrePassword\", password);\r",
-					"                pm.collectionVariables.set(\"userRecentCadastreToken\", json.userToken);\r",
-					"                return;\r",
-					"            }\r",
-					"\r",
-					"            // Tentativa falhou mesmo sem erro → repetir\r",
-					"            console.warn(`⚠ Tentativa ${attempt} falhou, tentando novamente...`);\r",
-					"            return createSimpleUserRequest(attempt + 1);\r",
-					"        }\r",
-					"    );\r",
-					"}\r",
-					"\r",
-					"function deleteSimpleUserRequest(token, userId) {\r",
-					"    if (pm.environment.get(\"useMock\") === \"true\") {\r",
-					"        console.log(\"🟡 Modo mock ativo — pulando delete de usuário\");\r",
-					"        return;\r",
-					"    }\r",
-					"    if (!token || !userId) {\r",
-					"        console.warn(\"⚠ Token ou userId não informado — ignorando\");\r",
-					"        return;\r",
-					"    }\r",
-					"\r",
-					"    pm.sendRequest(\r",
-					"        {\r",
-					"            url: `${pm.environment.get(\"user_service_url\")}?userId=${userId}`,\r",
-					"            method: \"DELETE\",\r",
-					"            header: {\r",
-					"                \"Authorization\": `Bearer ${token}`,\r",
-					"            },\r",
-					"        },\r",
-					"        (err, res) => {\r",
-					"            if (err) {\r",
-					"                console.error(\"❌ Erro no DELETE:\", err);\r",
-					"                return;\r",
-					"            }\r",
-					"            pm.collectionVariables.unset(\"userRecentCadastreId\");\r",
-					"            pm.collectionVariables.unset(\"userRecentCadastreEmail\");\r",
-					"            pm.collectionVariables.unset(\"userRecentCadastrePassword\");\r",
-					"            pm.collectionVariables.unset(\"userRecentCadastreToken\");\r",
-					"        }\r",
-					"    );\r",
-					"}\r",
-					"\r",
-					"function performLogin(email, password, scenario, tokenVarName = \"adminToken\") {\r",
-					"    if (!email || !password) {\r",
-					"        console.error(\"❌ email ou password não informados\");\r",
-					"        return;\r",
-					"    }\r",
-					"\r",
-					"    const headers = {\r",
-					"        \"Content-Type\": \"application/json\"\r",
-					"    };\r",
-					"\r",
-					"    if (pm.environment.get(\"useMock\") === \"true\" && scenario) {\r",
-					"        headers[\"x-mock-scenario\"] = scenario;\r",
-					"    }\r",
-					"\r",
-					"    pm.sendRequest(\r",
-					"        {\r",
-					"            url: `${pm.environment.get(\"auth_service_url\")}/login`,\r",
-					"            method: \"POST\",\r",
-					"            header: headers,\r",
-					"            body: {\r",
-					"                mode: \"raw\",\r",
-					"                raw: JSON.stringify({\r",
-					"                    userEmail: email,\r",
-					"                    passwordProvided: password,\r",
-					"                }),\r",
-					"            },\r",
-					"        },\r",
-					"        (err, res) => {\r",
-					"            if (err) {\r",
-					"                console.error(\"❌ Erro no login:\", err);\r",
-					"                return;\r",
-					"            }\r",
-					"\r",
-					"            const json = res.json();\r",
-					"\r",
-					"            if (json?.userToken) {\r",
-					"                pm.collectionVariables.set(tokenVarName, json.userToken);\r",
-					"                console.log(`✅ Token salvo em \"${tokenVarName}\"`);\r",
-					"                return;\r",
-					"            }\r",
-					"\r",
-					"            console.error(\"❌ Token não retornado\", json);\r",
-					"        }\r",
-					"    );\r",
-					"}\r",
-					"\r",
-					"\r",
-					"pm.collectionVariables.set(createSimpleUserRequest.name, createSimpleUserRequest.toString());\r",
-					"pm.collectionVariables.set(deleteSimpleUserRequest.name, deleteSimpleUserRequest.toString());\r",
-					"pm.collectionVariables.set(performLogin.name, performLogin.toString());\r",
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"packages": {},
-				"requests": {},
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "createSimpleUserRequest",
-			"value": ""
-		},
-		{
-			"key": "deleteSimpleUserRequest",
-			"value": ""
-		},
-		{
-			"key": "performLogin",
-			"value": ""
-		},
-		{
-			"key": "function () { [native code] }",
-			"value": ""
-		}
-	]
+  "info": {
+    "_postman_id": "26c69ced-5bf1-4f6b-8eb4-1e129ddd9cb4",
+    "name": "authService",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "36785755",
+    "_collection_link": "https://go.postman.co/collection/36785755-26c69ced-5bf1-4f6b-8eb4-1e129ddd9cb4?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "item": [
+        {
+          "name": "Login de usuário com email invalido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
+                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include((\"Email deve ser um email válido\").toLocaleLowerCase());\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"userEmail\": \"lucasm241301.com\",\r\n    \"passwordProvided\": \"U&*850802uhye\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{auth_service_url}}/login",
+              "host": [
+                "{{auth_service_url}}"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login de usuário com dados corretos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\nconst deleteSimpleUserRequest = use(\"deleteSimpleUserRequest\");\r\n\r\npm.test(\"Status code deve ser 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a propriedade userToken\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"userToken\");\r\n});\r\n\r\ndeleteSimpleUserRequest(pm.collectionVariables.get(\"userRecentCadastreToken\"), pm.collectionVariables.get(\"userRecentCadastreId\"))"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "function use(fnName) {\r\n    const raw = pm.collectionVariables.get(fnName);\r\n    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r\n    return eval(`(${raw})`);\r\n}\r\n\r\nconst createSimpleUserRequest = use('createSimpleUserRequest');\r\n\r\ncreateSimpleUserRequest()\r\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Mock-Scenario",
+                "value": "SUCCESS_VALIDATE_USER"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"userEmail\": \"{{userRecentCadastreEmail}}\",\r\n    \"passwordProvided\": \"{{userRecentCadastrePassword}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{auth_service_url}}/login",
+              "host": [
+                "{{auth_service_url}}"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login de Admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a propriedade userToken\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"userToken\");\r\n});\r\n"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Mock-Scenario",
+                "value": "SUCCESS_VALIDATE_ADMIN"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"userEmail\": \"{{adminEmail}}\",\r\n    \"passwordProvided\": \"{{adminPassword}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{auth_service_url}}/login",
+              "host": [
+                "{{auth_service_url}}"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login de usuário sem fornecer email",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
+                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include((\"Email é obrigatório\").toLocaleLowerCase());\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"passwordProvided\": \"{Password@123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{auth_service_url}}/login",
+              "host": [
+                "{{auth_service_url}}"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login de usuário sem fornecer senha",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
+                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include((\"Senha é obrigatória\").toLocaleLowerCase());\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"userEmail\": \"louisa_casper48@hotmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{auth_service_url}}/login",
+              "host": [
+                "{{auth_service_url}}"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login de usuário com email não cadastrado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 404\", function () {\r\n    pm.response.to.have.status(404);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    const expectMessage = \"Usuário não encontrado\".toLowerCase()\r\n    pm.expect(pm.response.text().toLowerCase()).to.include(expectMessage);\r\n});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Mock-Scenario",
+                "value": "USER_NOT_FOUND"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"userEmail\": \"tod_cole@yahoo.com\",\r\n    \"passwordProvided\": \"{Password@123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{auth_service_url}}/login",
+              "host": [
+                "{{auth_service_url}}"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login de usuário com senha incorreta",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code deve ser 401\", function () {\r",
+                  "    pm.response.to.have.status(401);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
+                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
+                  "    pm.expect(pm.response.text().toLowerCase()).to.include((\"Credenciais inválidas\").toLowerCase());\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "X-Mock-Scenario",
+                "value": "INVALID_CREDENTIALS",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"userEmail\": \"{{adminEmail}}\",\r\n    \"passwordProvided\": \"{test3e@123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{auth_service_url}}/login",
+              "host": [
+                "{{auth_service_url}}"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Validação do token",
+      "item": [
+        {
+          "name": "Validação sem fornecer token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code deve ser 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
+                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
+                  "    pm.expect(pm.response.text().toLowerCase()).to.include((\"Token não fornecido\").toLowerCase());\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{auth_service_url}}/validate-token",
+              "host": [
+                "{{auth_service_url}}"
+              ],
+              "path": [
+                "validate-token"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validação com token invalido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code deve ser 401\", function () {\r\n    pm.response.to.have.status(401);\r\n});\r\n\r\npm.test(\"Deve validar a propriedade message\", function () {\r\n    pm.expect(pm.response.json()).to.have.property(\"message\");\r\n});\r\n\r\npm.test(\"Deve validar a mensagem de retorno\", function () {\r\n    pm.expect(pm.response.text().toLowerCase()).to.include((\"Token inválido ou não fornecido\").toLowerCase());\r\n});"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set(\"invalidToken\", \"27uwtg2uvbw2y7w62wg2fgwf\")"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{invalidToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{auth_service_url}}/validate-token",
+              "host": [
+                "{{auth_service_url}}"
+              ],
+              "path": [
+                "validate-token"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validação com token valido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "function use(fnName) {\r",
+                  "    const raw = pm.collectionVariables.get(fnName);\r",
+                  "    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r",
+                  "    return eval(`(${raw})`);\r",
+                  "}\r",
+                  "const deleteSimpleUserRequest = use(\"deleteSimpleUserRequest\");\r",
+                  "\r",
+                  "pm.test(\"Status code deve ser 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
+                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include((\"Token válido\"));\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve validar decodificação do usuário\", function () {\r",
+                  "    pm.expect(pm.response.json()).to.have.property((\"decoded\"));\r",
+                  "    pm.expect(pm.response.json().decoded).to.have.property((\"userId\"));\r",
+                  "    pm.expect(pm.response.json().decoded).to.have.property((\"userEmail\"));\r",
+                  "    pm.expect(pm.response.json().decoded).to.have.property((\"roleName\"));\r",
+                  "    pm.expect(pm.response.json().decoded).to.have.property((\"iat\"));\r",
+                  "    pm.expect(pm.response.json().decoded).to.have.property((\"exp\"));\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve validar a Permissão do usuário\", function (){\r",
+                  "    const expectedRole = \"User\"\r",
+                  "    pm.expect(pm.response.json().decoded.roleName).to.have.equal(expectedRole)\r",
+                  "})\r",
+                  "\r",
+                  "deleteSimpleUserRequest(pm.collectionVariables.get(\"userRecentCadastreToken\"), pm.collectionVariables.get(\"userRecentCadastreId\"))"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "function use(fnName) {\r",
+                  "    const raw = pm.collectionVariables.get(fnName);\r",
+                  "    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r",
+                  "    return eval(`(${raw})`);\r",
+                  "}\r",
+                  "\r",
+                  "const createSimpleUserRequest = use('createSimpleUserRequest');\r",
+                  "const performLogin = use(\"performLogin\");\r",
+                  "\r",
+                  "createSimpleUserRequest()\r",
+                  "performLogin(\r",
+                  "    pm.collectionVariables.get(\"userRecentCadastreEmail\"),\r",
+                  "    pm.collectionVariables.get(\"userRecentCadastrePassword\"),\r",
+                  "    \"SUCCESS_VALIDATE_USER\",\r",
+                  "    \"userRecentCadastreToken\"\r",
+                  ");\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{userRecentCadastreToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{auth_service_url}}/validate-token",
+              "host": [
+                "{{auth_service_url}}"
+              ],
+              "path": [
+                "validate-token"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validação com token admin valido",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "function use(fnName) {\r",
+                  "    const raw = pm.collectionVariables.get(fnName);\r",
+                  "    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r",
+                  "    return eval(`(${raw})`);\r",
+                  "}\r",
+                  "const deleteSimpleUserRequest = use(\"deleteSimpleUserRequest\");\r",
+                  "\r",
+                  "pm.test(\"Status code deve ser 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve validar a propriedade message\", function () {\r",
+                  "    pm.expect(pm.response.json()).to.have.property(\"message\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve validar a mensagem de retorno\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.include((\"Token válido\"));\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve validar decodificação do usuário\", function () {\r",
+                  "    pm.expect(pm.response.json()).to.have.property((\"decoded\"));\r",
+                  "    pm.expect(pm.response.json().decoded).to.have.property((\"userId\"));\r",
+                  "    pm.expect(pm.response.json().decoded).to.have.property((\"userEmail\"));\r",
+                  "    pm.expect(pm.response.json().decoded).to.have.property((\"roleName\"));\r",
+                  "    pm.expect(pm.response.json().decoded).to.have.property((\"iat\"));\r",
+                  "    pm.expect(pm.response.json().decoded).to.have.property((\"exp\"));\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve validar a Permissão do usuário\", function (){\r",
+                  "    const expectedRole = \"Admin\"\r",
+                  "    pm.expect(pm.response.json().decoded.roleName).to.have.equal(expectedRole)\r",
+                  "})\r",
+                  "\r",
+                  "pm.collectionVariables.unset(\"adminToken\")"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "function use(fnName) {\r",
+                  "    const raw = pm.collectionVariables.get(fnName);\r",
+                  "    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r",
+                  "    return eval(`(${raw})`);\r",
+                  "}\r",
+                  "\r",
+                  "const login = use(\"performLogin\");\r",
+                  "\r",
+                  "const adminEmail = pm.environment.get(\"adminEmail\");\r",
+                  "const adminPassword = pm.environment.get(\"adminPassword\");\r",
+                  "\r",
+                  "login(adminEmail, adminPassword, \"SUCCESS_VALIDATE_ADMIN\")\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{adminToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{auth_service_url}}/validate-token",
+              "host": [
+                "{{auth_service_url}}"
+              ],
+              "path": [
+                "validate-token"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "exec": [
+          "function use(fnName) {\r",
+          "    const raw = pm.collectionVariables.get(fnName);\r",
+          "    if (!raw) throw new Error(`Função não encontrada: ${fnName}`);\r",
+          "    return eval(`(${raw})`);\r",
+          "}\r",
+          "\r",
+          "async function createSimpleUserRequest(attempt = 1, scenario = \"SUCCESS_CREATE_USER\") {\r",
+          "    const password = \"Password@123\";\r",
+          "\r",
+          "    if (attempt > 5) {\r",
+          "        throw new Error(\"❌ Não foi possível criar usuário após 5 tentativas.\");\r",
+          "    }\r",
+          "\r",
+          "    console.log(`🔄 Tentativa ${attempt} de criar usuário simples...`);\r",
+          "\r",
+          "    const headers = {\r",
+          "        \"Content-Type\": \"application/json\"\r",
+          "    };\r",
+          "\r",
+          "    if (pm.environment.get(\"useMock\") === \"true\" && scenario) {\r",
+          "        headers[\"x-mock-scenario\"] = scenario;\r",
+          "    }\r",
+          "\r",
+          "    const response = await new Promise((resolve, reject) => {\r",
+          "        pm.sendRequest(\r",
+          "            {\r",
+          "                url: pm.environment.get(\"user_service_url\"),\r",
+          "                method: \"POST\",\r",
+          "                header: headers,\r",
+          "                body: {\r",
+          "                    mode: \"raw\",\r",
+          "                    raw: JSON.stringify({\r",
+          "                        firstName: pm.variables.replaceIn(\"{{$randomColor}}\"),\r",
+          "                        lastName: `${pm.variables.replaceIn(\"{{$randomColor}}\")} ${pm.variables.replaceIn(\"{{$randomColor}}\")}`,\r",
+          "                        email: pm.variables.replaceIn(\"{{$randomEmail}}\") ,\r",
+          "                        password,\r",
+          "                    }),\r",
+          "                },\r",
+          "            },\r",
+          "            (err, res) => {\r",
+          "                if (err) return reject(err);\r",
+          "                resolve(res);\r",
+          "            }\r",
+          "        );\r",
+          "    });\r",
+          "\r",
+          "    const json = response.json();\r",
+          "\r",
+          "    if (response.code === 201 && json?.userId) {\r",
+          "        console.log(\"✅ Usuário criado com sucesso:\", json.userId);\r",
+          "        pm.collectionVariables.set(\"userRecentCadastreId\", json.userId);\r",
+          "        pm.collectionVariables.set(\"userRecentCadastreEmail\", json.email);\r",
+          "        pm.collectionVariables.set(\"userRecentCadastrePassword\", password);\r",
+          "        pm.collectionVariables.set(\"userRecentCadastreToken\", json.userToken);\r",
+          "        return json;\r",
+          "    }\r",
+          "\r",
+          "    console.warn(`⚠ Tentativa ${attempt} falhou (status ${response.code}), tentando novamente...`);\r",
+          "    return createSimpleUserRequest(attempt + 1); // recursão simples, sem envolver a Promise externa\r",
+          "}\r",
+          "\r",
+          "function deleteSimpleUserRequest(token, userId) {\r",
+          "    if (pm.environment.get(\"useMock\") === \"true\") {\r",
+          "        console.log(\"🟡 Modo mock ativo — pulando delete de usuário\");\r",
+          "        return;\r",
+          "    }\r",
+          "    if (!token || !userId) {\r",
+          "        console.warn(\"⚠ Token ou userId não informado — ignorando\");\r",
+          "        return;\r",
+          "    }\r",
+          "\r",
+          "    pm.sendRequest(\r",
+          "        {\r",
+          "            url: `${pm.environment.get(\"user_service_url\")}?userId=${userId}`,\r",
+          "            method: \"DELETE\",\r",
+          "            header: {\r",
+          "                \"Authorization\": `Bearer ${token}`,\r",
+          "            },\r",
+          "        },\r",
+          "        (err, res) => {\r",
+          "            if (err) {\r",
+          "                console.error(\"❌ Erro no DELETE:\", err);\r",
+          "                return;\r",
+          "            }\r",
+          "            pm.collectionVariables.unset(\"userRecentCadastreId\");\r",
+          "            pm.collectionVariables.unset(\"userRecentCadastreEmail\");\r",
+          "            pm.collectionVariables.unset(\"userRecentCadastrePassword\");\r",
+          "            pm.collectionVariables.unset(\"userRecentCadastreToken\");\r",
+          "        }\r",
+          "    );\r",
+          "}\r",
+          "\r",
+          "function performLogin(email, password, scenario, tokenVarName = \"adminToken\") {\r",
+          "    if (!email || !password) {\r",
+          "        console.error(\"❌ email ou password não informados\");\r",
+          "        return;\r",
+          "    }\r",
+          "\r",
+          "    const headers = {\r",
+          "        \"Content-Type\": \"application/json\"\r",
+          "    };\r",
+          "\r",
+          "    if (pm.environment.get(\"useMock\") === \"true\" && scenario) {\r",
+          "        headers[\"x-mock-scenario\"] = scenario;\r",
+          "    }\r",
+          "\r",
+          "    pm.sendRequest(\r",
+          "        {\r",
+          "            url: `${pm.environment.get(\"auth_service_url\")}/login`,\r",
+          "            method: \"POST\",\r",
+          "            header: headers,\r",
+          "            body: {\r",
+          "                mode: \"raw\",\r",
+          "                raw: JSON.stringify({\r",
+          "                    userEmail: email,\r",
+          "                    passwordProvided: password,\r",
+          "                }),\r",
+          "            },\r",
+          "        },\r",
+          "        (err, res) => {\r",
+          "            if (err) {\r",
+          "                console.error(\"❌ Erro no login:\", err);\r",
+          "                return;\r",
+          "            }\r",
+          "\r",
+          "            const json = res.json();\r",
+          "\r",
+          "            if (json?.userToken) {\r",
+          "                pm.collectionVariables.set(tokenVarName, json.userToken);\r",
+          "                console.log(`✅ Token salvo em \"${tokenVarName}\"`);\r",
+          "                return;\r",
+          "            }\r",
+          "\r",
+          "            console.error(\"❌ Token não retornado\", json);\r",
+          "        }\r",
+          "    );\r",
+          "}\r",
+          "\r",
+          "\r",
+          "pm.collectionVariables.set(createSimpleUserRequest.name, createSimpleUserRequest.toString());\r",
+          "pm.collectionVariables.set(deleteSimpleUserRequest.name, deleteSimpleUserRequest.toString());\r",
+          "pm.collectionVariables.set(performLogin.name, performLogin.toString());\r",
+          ""
+        ],
+        "type": "text/javascript"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "createSimpleUserRequest",
+      "value": ""
+    },
+    {
+      "key": "deleteSimpleUserRequest",
+      "value": ""
+    },
+    {
+      "key": "performLogin",
+      "value": ""
+    },
+    {
+      "key": "function () { [native code] }",
+      "value": ""
+    },
+    {
+      "key": "userRecentCadastreId",
+      "value": ""
+    },
+    {
+      "key": "userRecentCadastreEmail",
+      "value": ""
+    },
+    {
+      "key": "userRecentCadastrePassword",
+      "value": ""
+    },
+    {
+      "key": "userRecentCadastreToken",
+      "value": ""
+    }
+  ]
 }
